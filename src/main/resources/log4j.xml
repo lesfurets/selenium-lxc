@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd" >
+<log4j:configuration>
+  <appender name="console" class="org.apache.log4j.ConsoleAppender">
+    <param name="threshold" value="ALL" />
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d [%-5p] %c - %m%n" />
+    </layout>
+  </appender>
+  <logger name="net.courtanet">
+    <level value="ERROR" />
+  </logger>
+  <root>
+    <priority value="INFO" />
+    <appender-ref ref="console" />
+  </root>
+</log4j:configuration>

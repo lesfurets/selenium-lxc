@@ -1,0 +1,134 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.lesfurets.tools</groupId>
+  <artifactId>selenium-grid</artifactId>
+  <version>0.1-SNAPSHOT</version>
+  <name>Test - Selenium</name>
+  <packaging>jar</packaging>
+  <description>Tests massifs du grid Selenium</description>
+  <properties>
+    <encoding>UTF-8</encoding>
+    
+    <!-- dependencies -->
+    <junit.version>4.11</junit.version>
+    <seleniumhq.version>2.39.0</seleniumhq.version>
+    <log4j.version>1.2.17</log4j.version>
+    <xml-apis.version>1.4.01</xml-apis.version>
+    
+    <!-- parameters -->
+    <grid.url>127.0.0.1</grid.url>
+    <grid.port></grid.port>
+    <test.target.url>www.google.com</test.target.url>
+    
+    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.7</maven.compiler.source>
+  </properties>
+  
+  <dependencies>
+    <!-- dépendances TEST -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-api</artifactId>
+      <version>${seleniumhq.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-support</artifactId>
+      <version>${seleniumhq.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-server</artifactId>
+      <version>${seleniumhq.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-firefox-driver</artifactId>
+      <version>${seleniumhq.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>xml-apis</groupId>
+      <artifactId>xml-apis</artifactId>
+      <version>${xml-apis.version}</version>
+      <scope>test</scope>
+    </dependency>
+      <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>${log4j.version}</version>
+      </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <skipTests>true</skipTests>
+          <systemPropertyVariables>
+            <java.awt.headless>true</java.awt.headless>
+            <appname>unit_test</appname>
+          </systemPropertyVariables>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <profiles>
+    <!-- Exécution de toutes les suites selenium -->
+    <profile>
+      <id>local</id>
+      <activation>
+         <activeByDefault>true</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <skipTests>false</skipTests>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <!-- Exécution sur l'environnement par défaut (Dev) -->
+    <profile>
+      <id>grid</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <systemProperties>
+                <property>
+                  <name>remoteGridExecution</name>
+                  <value>true</value>
+                </property>
+                <property>
+                  <name>seleniumContext</name>
+                  <value>http://${test.target.url}</value>
+                </property>
+                <property>
+                  <name>remoteGridURL</name>
+                  <value>http://${grid.url}:${grid.port}/wd/hub</value>
+                </property>
+              </systemProperties>
+              <threadCount>10</threadCount>
+              <parallel>classes</parallel>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>
