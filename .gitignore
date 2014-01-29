@@ -1,6 +1,11 @@
+# Build tooling #
+target/
+.idea/
+.project
+.classpath
+.settings/
+# Files #
 *.class
-
-# Package Files #
 *.jar
 *.war
 *.ear
