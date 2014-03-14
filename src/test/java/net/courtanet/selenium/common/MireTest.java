@@ -13,7 +13,8 @@ public abstract class MireTest extends SiteTest {
 
     protected void testPage(String source) {
         getDriver().navigate().to(SITE_URL_CONTEXT.propertyValue() + "/" + source);
-        Assert.assertEquals(SITE_URL_CONTEXT.propertyValue() + "/" + source, getDriver().getCurrentUrl());
+        Assert.assertTrue(getDriver().getCurrentUrl().contains("/" + source));
+
     }
 
 }
