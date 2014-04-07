@@ -67,7 +67,7 @@ L'installation est plutot aisée : `apt-get install lxc`
 
 Par défaut, au démarrage, on va avoir une interface bridge de créée avec du NAT. Comme ça, nos containers vont pouvoir communiquer entre eux et avec la machine physique, puis iront sur le net via la connexion nattée – donc pas d'adresse MAC qui traine sur le réseau de votre hébergeur.
 
-Avec l'installation lxc standard, les containers sont stockés dans /var/lib/lxc et le cache de contenu dans /var/cache/lxc, mais si vous les avez déplacés, vérifiez que le point de montage qui contiendra vos containers n'est en mode nosetuid. En effet pour effectuer les opérations sudo, les containers lxc doivent être montés dans une partition sans nosetuid. 
+Avec l'installation lxc standard, les containers sont stockés dans /var/lib/lxc et le cache de contenu dans /var/cache/lxc, mais si vous les avez déplacés, vérifiez que le point de montage qui contiendra vos containers n'est en mode *nosetuid*. En effet pour effectuer les opérations sudo, les containers lxc doivent être montés dans une partition sans *nosetuid*. 
 
 C'est cool, ça, la conf par défaut qui est celle qu'on veut !
 
