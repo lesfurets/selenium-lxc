@@ -75,6 +75,8 @@ Seupt step 1 : `apt-get install lxc`
 
 By default, there is bridge interface ceated with NAT. Each containers are able to communicate with each others and the host system, and the internet with this NAT interface, that even work on your hosted server as there is no new MAC adress violating the hosting service restrictions (OVH doesn't allow self made clouds).
 
+With lxc stock installation containers are stored under /var/lib/lxc and contents cache under /var/cache/lxc, but if you have deplaced them, you should check mount point where your containers are stored is not with *nosetuid*. For successfull sudo operations, containers should be hosted on partition without *nosetuid*. 
+
 Great, the default setup is the one we need !!
 
 Beware that if you did setup a firewall on your hosted server, it's quite sure that the NAT rule will be removed. Do not forget to setup one.
